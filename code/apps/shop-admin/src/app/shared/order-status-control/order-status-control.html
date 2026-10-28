@@ -1,0 +1,32 @@
+<div class="status-control">
+  @if (isTerminal()) {
+    <span class="status-control__terminal">No further status change</span>
+  } @else {
+    <div class="status-control__actions">
+      @if (nextStatus(); as next) {
+        <button
+          type="button"
+          class="btn btn--primary btn--sm"
+          [disabled]="busy()"
+          (click)="advance()"
+        >
+          {{ busy() ? 'Updating...' : 'Advance to ' + next }}
+        </button>
+      }
+      @if (canCancel()) {
+        <button
+          type="button"
+          class="btn btn--danger btn--sm"
+          [disabled]="busy()"
+          (click)="cancel()"
+        >
+          Cancel order
+        </button>
+      }
+    </div>
+  }
+
+  @if (errorMessage()) {
+    <p class="status-control__error">{{ errorMessage() }}</p>
+  }
+</div>

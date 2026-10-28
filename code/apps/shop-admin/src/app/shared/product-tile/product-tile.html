@@ -1,0 +1,65 @@
+<svg
+  viewBox="0 0 200 200"
+  class="product-tile"
+  role="img"
+  [attr.aria-label]="product().name + ' (' + product().category + ')'"
+  preserveAspectRatio="xMidYMid slice"
+>
+  <defs>
+    <linearGradient [attr.id]="gradientId()" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" [attr.stop-color]="art().from" />
+      <stop offset="100%" [attr.stop-color]="art().to" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" [attr.fill]="'url(#' + gradientId() + ')'" />
+  <g opacity="0.16" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="40" x2="200" y2="40" />
+    <line x1="0" y1="80" x2="200" y2="80" />
+    <line x1="0" y1="120" x2="200" y2="120" />
+    <line x1="0" y1="160" x2="200" y2="160" />
+  </g>
+
+  @switch (art().icon) {
+    @case ('chip') {
+      <g fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="7" stroke-linecap="round">
+        <rect x="72" y="72" width="56" height="56" rx="10" />
+        <circle cx="100" cy="100" r="9" fill="rgba(255,255,255,0.82)" stroke="none" />
+        <line x1="72" y1="80" x2="54" y2="80" />
+        <line x1="128" y1="80" x2="146" y2="80" />
+        <line x1="72" y1="100" x2="54" y2="100" />
+        <line x1="128" y1="100" x2="146" y2="100" />
+        <line x1="72" y1="120" x2="54" y2="120" />
+        <line x1="128" y1="120" x2="146" y2="120" />
+        <line x1="80" y1="72" x2="80" y2="54" />
+        <line x1="80" y1="128" x2="80" y2="146" />
+        <line x1="100" y1="72" x2="100" y2="54" />
+        <line x1="100" y1="128" x2="100" y2="146" />
+        <line x1="120" y1="72" x2="120" y2="54" />
+        <line x1="120" y1="128" x2="120" y2="146" />
+      </g>
+    }
+    @case ('chair') {
+      <g fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M62 138 L62 92 Q62 80 74 80 L126 80 Q138 80 138 92 L138 138" />
+        <line x1="62" y1="112" x2="138" y2="112" />
+        <line x1="62" y1="138" x2="62" y2="156" />
+        <line x1="138" y1="138" x2="138" y2="156" />
+      </g>
+    }
+    @case ('leaf') {
+      <g fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M52 142 L86 88 L106 116 L128 82 L154 142 Z" />
+        <circle cx="128" cy="64" r="11" fill="rgba(255,255,255,0.82)" stroke="none" />
+      </g>
+    }
+    @case ('shirt') {
+      <g fill="none" stroke="rgba(255,255,255,0.82)" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M74 68 L96 56 Q100 66 104 56 L126 68 L146 90 L128 102 L128 148 L72 148 L72 102 L54 90 Z" />
+      </g>
+    }
+  }
+
+  <text x="180" y="184" text-anchor="end" font-size="26" font-weight="700" fill="rgba(255,255,255,0.34)">
+    {{ initials() }}
+  </text>
+</svg>

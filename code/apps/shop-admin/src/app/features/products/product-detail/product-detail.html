@@ -1,0 +1,159 @@
+<div class="page">
+  <a routerLink="/products" class="page__back">&larr; Back to products</a>
+
+  @if (loading()) {
+    <p class="state state--loading">Loading product...</p>
+  } @else if (errorMessage()) {
+    <div class="state state--error">
+      <p><span class="state__icon">{{ errorIconGlyph() }}</span>{{ errorMessage() }}</p>
+    </div>
+  } @else if (product(); as product) {
+    <div class="page__head">
+      <div class="page__head-identity">
+        <app-product-tile [product]="product" class="product-detail__tile" />
+        <div>
+          <h1>{{ product.name }}</h1>
+          <p class="page__lede">{{ product.brand }} &middot; {{ product.category }}</p>
+        </div>
+      </div>
+      <span class="stock" [class.stock--low]="product.stock < 10">{{ product.stock }} in stock</span>
+    </div>
+
+    <div class="detail-grid">
+      <section class="panel">
+        <h2 class="panel__title">Catalog details</h2>
+        <p class="description">{{ product.description }}</p>
+        <dl class="specs">
+          <div class="specs__row">
+            <dt>Catalog price</dt>
+            <dd class="mono">{{ product.price | currency }}</dd>
+          </div>
+          <div class="specs__row">
+            <dt>SKU</dt>
+            <dd class="mono">{{ product.sku }}</dd>
+          </div>
+          <div class="specs__row">
+            <dt>Weight</dt>
+            <dd class="mono">{{ product.weight }} kg</dd>
+          </div>
+          <div class="specs__row">
+            <dt>Dimensions (L x W x H)</dt>
+            <dd class="mono">
+              {{ product.dimensions.length }} x {{ product.dimensions.width }} x
+              {{ product.dimensions.height }} cm
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="panel">
+        <div class="quote-panel__head">
+          <h2 class="panel__title">Price</h2>
+          @if (!editingPrice()) {
+            <button type="button" class="btn btn--secondary btn--sm" (click)="startPriceEdit()">
+              Price a quantity
+            </button>
+          }
+        </div>
+
+        @if (!editingPrice()) {
+          <p class="quote-value mono">{{ product.price | currency }}</p>
+          <p class="panel__note">Catalog price. products-service has no endpoint that changes it.</p>
+        } @else {
+          <p class="panel__note">
+            Computes a price for a quantity and an optional discount. This does not change the
+            catalog price above - the service only returns a quote, it never persists one.
+          </p>
+
+          <div class="quote-form">
+            <div class="field">
+              <label for="quantity">Quantity</label>
+              <input
+                id="quantity"
+                type="number"
+                min="1"
+                step="1"
+                [ngModel]="quantity()"
+                (ngModelChange)="quantity.set($event)"
+              />
+            </div>
+
+            <div class="field">
+              <label for="discount-mode">Discount</label>
+              <select
+                id="discount-mode"
+                [ngModel]="discountMode()"
+                (ngModelChange)="discountMode.set($event)"
+              >
+                <option value="none">None</option>
+                <option value="percentage">Percentage off</option>
+                <option value="amount">Fixed amount off</option>
+              </select>
+            </div>
+
+            @if (discountMode() !== 'none') {
+              <div class="field">
+                <label for="discount-value">
+                  {{ discountMode() === 'percentage' ? 'Percent' : 'Amount ($)' }}
+                </label>
+                <input
+                  id="discount-value"
+                  type="number"
+                  min="0"
+                  step="0.01"
+                  [ngModel]="discountValue()"
+                  (ngModelChange)="discountValue.set($event)"
+                />
+              </div>
+            }
+
+            @if (appliesBulkDiscount()) {
+              <p class="hint">Quantities of 10 or more get an automatic 5% bulk discount.</p>
+            }
+
+            <div class="quote-form__actions">
+              <button
+                type="button"
+                class="btn btn--primary"
+                [disabled]="quoteLoading() || quantity() < 1"
+                (click)="calculatePrice()"
+              >
+                {{ quoteLoading() ? 'Calculating...' : 'Calculate price' }}
+              </button>
+              <button type="button" class="btn" (click)="cancelPriceEdit()">Close</button>
+            </div>
+          </div>
+
+          @if (quoteError()) {
+            <p class="form-error-banner">{{ quoteError() }}</p>
+          }
+
+          @if (quoteResult(); as quote) {
+            <div class="quote-result" [class.is-flashing]="justQuoted()">
+              <div class="quote-result__row">
+                <span>Base price</span>
+                <span class="mono">{{ quote.basePrice | currency }}</span>
+              </div>
+              @for (discount of quote.discounts; track discount.type + discount.amount) {
+                <div class="quote-result__row quote-result__row--discount">
+                  <span>{{ discount.type }}</span>
+                  <span class="mono">
+                    -{{ discount.amount ? (discount.amount | currency) : discount.percentage + '%' }}
+                  </span>
+                </div>
+              }
+              <div class="quote-result__row">
+                <span>Price per unit</span>
+                <span class="mono">{{ quote.finalPrice | currency }}</span>
+              </div>
+              <div class="quote-result__row quote-result__row--total">
+                <span>Total for {{ quote.quantity }}</span>
+                <span class="mono">{{ quote.totalPrice | currency }}</span>
+              </div>
+            </div>
+          }
+        }
+      </section>
+    </div>
+  }
+</div>

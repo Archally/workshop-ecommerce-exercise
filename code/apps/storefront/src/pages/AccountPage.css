@@ -1,0 +1,65 @@
+.account-page__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.account-page__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.account-page__grid {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+
+@media (max-width: 760px) {
+  .account-page__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.account-page__panel-title {
+  font-size: var(--text-md);
+  margin-bottom: var(--space-4);
+}
+
+.account-page__empty {
+  color: var(--text-dim);
+}
+
+.account-page__discount-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.account-page__discount {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  background: var(--bg-raised);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+}
+
+.account-page__discount-amount {
+  font-weight: 600;
+}
+
+.account-page__discount-description {
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
+}

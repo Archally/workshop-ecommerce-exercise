@@ -1,0 +1,15 @@
+.danger-zone {
+  border-color: var(--danger-border);
+}
+
+.confirm-text {
+  font-size: var(--text-sm);
+  color: var(--text);
+  margin-bottom: var(--space-3);
+}
+
+.quote-form__actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}

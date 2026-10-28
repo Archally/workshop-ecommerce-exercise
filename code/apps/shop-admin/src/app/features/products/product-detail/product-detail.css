@@ -1,0 +1,104 @@
+.page__head-identity {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.product-detail__tile {
+  display: block;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.stock {
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+  background: var(--bg-sunken);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1) var(--space-3);
+}
+
+.stock--low {
+  color: var(--status-cancelled-text);
+  background: var(--status-cancelled-bg);
+  border-color: transparent;
+}
+
+.description {
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-4);
+}
+
+.quote-panel__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-2);
+}
+
+.quote-panel__head .panel__title {
+  margin-bottom: 0;
+}
+
+.quote-value {
+  font-size: var(--text-2xl);
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+}
+
+.quote-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.quote-form__actions {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.hint {
+  font-size: var(--text-xs);
+  color: var(--secondary-700);
+  background: var(--secondary-100);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
+}
+
+.quote-result {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-4);
+  transition: background 200ms ease;
+}
+
+.quote-result.is-flashing {
+  background: var(--primary-100);
+}
+
+.quote-result__row {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-1) 0;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+.quote-result__row--discount {
+  color: var(--discount-text);
+}
+
+.quote-result__row--total {
+  border-top: 1px solid var(--border);
+  margin-top: var(--space-1);
+  padding-top: var(--space-2);
+  font-weight: 600;
+  color: var(--text);
+}

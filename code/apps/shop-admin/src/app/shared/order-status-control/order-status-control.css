@@ -1,0 +1,22 @@
+.status-control {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  align-items: flex-start;
+}
+
+.status-control__actions {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.status-control__terminal {
+  font-size: var(--text-xs);
+  color: var(--text-faint);
+}
+
+.status-control__error {
+  font-size: var(--text-xs);
+  color: var(--danger-text);
+}

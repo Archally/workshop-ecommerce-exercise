@@ -1,0 +1,26 @@
+.status-block {
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-md);
+  transition: background 200ms ease;
+}
+
+.status-block.is-flashing {
+  background: var(--primary-100);
+}
+
+.status-panel {
+  margin-bottom: var(--space-5);
+}
+
+.order-total {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-3) 0;
+  font-weight: 600;
+}
+
+.timestamps {
+  color: var(--text-faint);
+  font-size: var(--text-xs);
+}

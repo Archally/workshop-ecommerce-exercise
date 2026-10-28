@@ -1,0 +1,64 @@
+@if (!showChrome()) {
+  <router-outlet />
+}
+
+@if (showChrome()) {
+<div class="shell">
+  <header class="shell__topbar">
+    <div class="shell__brand">
+      <span class="shell__mark" aria-hidden="true"></span>
+      <span class="shell__brand-name">Shop Admin</span>
+    </div>
+    <span class="shell__section">{{ currentSection() }}</span>
+    @if (operator(); as signedIn) {
+      <div class="shell__operator">
+        <span class="shell__operator-name">{{ signedIn.name }}</span>
+        <span class="shell__operator-role">{{ signedIn.role }}</span>
+        <button type="button" class="shell__sign-out" (click)="signOut()">Sign out</button>
+      </div>
+    }
+  </header>
+
+  <nav class="shell__sidebar" aria-label="Primary">
+    <a routerLink="/products" routerLinkActive="is-active" class="shell__nav-link">
+      <span class="shell__nav-icon" aria-hidden="true">&#128230;</span>
+      <span class="shell__nav-label">Products</span>
+    </a>
+    <a routerLink="/orders" routerLinkActive="is-active" class="shell__nav-link">
+      <span class="shell__nav-icon" aria-hidden="true">&#129534;</span>
+      <span class="shell__nav-label">Orders</span>
+    </a>
+    <a routerLink="/customers" routerLinkActive="is-active" class="shell__nav-link">
+      <span class="shell__nav-icon" aria-hidden="true">&#128100;</span>
+      <span class="shell__nav-label">Customers</span>
+    </a>
+  </nav>
+
+  <main class="shell__main">
+    <router-outlet />
+  </main>
+
+  <aside class="shell__activity" [class.is-open]="activityDrawerOpen()" aria-label="Activity panel">
+    <button
+      type="button"
+      class="shell__activity-close"
+      (click)="closeActivityDrawer()"
+      aria-label="Close activity panel"
+    >
+      &times;
+    </button>
+    <app-activity-feed />
+  </aside>
+
+  <button type="button" class="shell__activity-tab" (click)="toggleActivityDrawer()">
+    Activity
+    @if (activityCount() > 0) {
+      <span class="shell__activity-badge">{{ activityCount() }}</span>
+    }
+  </button>
+
+  @if (activityDrawerOpen()) {
+    <div class="shell__scrim" (click)="closeActivityDrawer()"></div>
+  }
+</div>
+}

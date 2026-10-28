@@ -1,0 +1,43 @@
+<div class="sign-in">
+  <div class="sign-in__card panel">
+    <div class="sign-in__brand">
+      <span class="sign-in__mark" aria-hidden="true"></span>
+      <span class="sign-in__brand-name">Shop Admin</span>
+    </div>
+    <p class="sign-in__subtitle">The back office is closed until an operator signs in.</p>
+
+    <form class="sign-in__form" (ngSubmit)="submit()">
+      <div class="field">
+        <label for="operator-login">Login</label>
+        <input
+          id="operator-login"
+          name="login"
+          type="text"
+          autocomplete="username"
+          [ngModel]="login()"
+          (ngModelChange)="login.set($event)"
+        />
+      </div>
+
+      <div class="field">
+        <label for="operator-password">Password</label>
+        <input
+          id="operator-password"
+          name="password"
+          type="password"
+          autocomplete="current-password"
+          [ngModel]="password()"
+          (ngModelChange)="password.set($event)"
+        />
+      </div>
+
+      <button type="submit" class="btn btn--primary sign-in__submit" [disabled]="submitting()">
+        {{ submitting() ? 'Signing in...' : 'Sign in' }}
+      </button>
+    </form>
+
+    @if (errorMessage()) {
+      <p class="sign-in__error field__error" role="alert">{{ errorMessage() }}</p>
+    }
+  </div>
+</div>

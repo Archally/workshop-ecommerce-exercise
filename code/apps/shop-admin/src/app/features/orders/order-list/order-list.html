@@ -1,0 +1,61 @@
+<div class="page">
+  <div class="page__head">
+    <div>
+      <h1>Orders</h1>
+      <p class="page__lede">Every order orders-service currently knows about.</p>
+    </div>
+    <select
+      class="filter"
+      [ngModel]="customerFilter()"
+      (ngModelChange)="onCustomerFilterChange($event)"
+    >
+      <option value="">All customers</option>
+      @for (customer of customerOptions(); track customer.id) {
+        <option [value]="customer.id">{{ customer.name }}</option>
+      }
+    </select>
+  </div>
+
+  @if (loading()) {
+    <p class="state state--loading">Loading orders from orders-service...</p>
+  } @else if (errorMessage()) {
+    <div class="state state--error">
+      <p><span class="state__icon">{{ errorIconGlyph() }}</span>{{ errorMessage() }}</p>
+      <button type="button" class="btn" (click)="retry()">Retry</button>
+    </div>
+  } @else if (orders().length === 0) {
+    <p class="state">No orders match this filter.</p>
+  } @else {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Customer</th>
+          <th>Status</th>
+          <th class="table__num">Items</th>
+          <th class="table__num">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (order of orders(); track order.id) {
+          <tr
+            [routerLink]="['/orders', order.id]"
+            class="table__row"
+            [class.is-flashing]="flashingOrderId() === order.id"
+          >
+            <!-- The row itself carries the routerLink, which a mouse can use and
+                 nothing else can: a <tr> is a row, never a link, so the order has
+                 no name anything can open it by. The anchor gives it one. -->
+            <td class="table__primary mono" data-label="Order">
+              <a class="table__link" [routerLink]="['/orders', order.id]">{{ order.id }}</a>
+            </td>
+            <td data-label="Customer">{{ customerName(order.customerId) }}</td>
+            <td data-label="Status"><app-status-badge [status]="order.status" /></td>
+            <td class="table__num mono" data-label="Items">{{ order.items.length }}</td>
+            <td class="table__num mono" data-label="Total">{{ order.totalAmount | currency }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

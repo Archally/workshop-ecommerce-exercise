@@ -1,0 +1,110 @@
+.order-detail {
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.order-detail__confirmation {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border-radius: var(--radius-lg);
+  background: var(--success-bg);
+  border: 1px solid rgba(74, 222, 128, 0.35);
+}
+
+.order-detail__confirmation-icon {
+  font-size: var(--text-xl);
+}
+
+.order-detail__confirmation h2 {
+  color: var(--success);
+  font-size: var(--text-md);
+}
+
+.order-detail__confirmation p {
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+  margin-top: var(--space-1);
+}
+
+.order-detail__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: var(--space-6);
+}
+
+.order-detail__header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.order-detail__cancelled-banner {
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-6);
+  border-radius: var(--radius-md);
+  background: var(--danger-bg);
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  color: var(--danger);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}
+
+.order-detail__label {
+  color: var(--text-faint);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.order-detail__id {
+  font-size: var(--text-lg);
+  margin-top: var(--space-1);
+}
+
+.order-detail__meta {
+  margin-top: var(--space-4);
+}
+
+.order-detail__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-base);
+}
+
+.order-detail__table th {
+  text-align: left;
+  color: var(--text-faint);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--border);
+}
+
+.order-detail__table td {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-detail__table th:not(:first-child),
+.order-detail__table td:not(:first-child) {
+  text-align: right;
+}
+
+.order-detail__table tfoot td {
+  border-bottom: none;
+  font-weight: 700;
+  padding-top: var(--space-3);
+}
+
+.order-detail__hint {
+  margin-top: var(--space-4);
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}

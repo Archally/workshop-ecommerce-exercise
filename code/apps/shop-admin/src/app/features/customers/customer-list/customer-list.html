@@ -1,0 +1,49 @@
+<div class="page">
+  <div class="page__head">
+    <div>
+      <h1>Customers</h1>
+      <p class="page__lede">Active customers known to customer-service.</p>
+    </div>
+    <input
+      class="filter"
+      type="search"
+      placeholder="Filter by name, email, city..."
+      [ngModel]="filterText()"
+      (ngModelChange)="filterText.set($event)"
+    />
+  </div>
+
+  @if (loading()) {
+    <p class="state state--loading">Loading customers from customer-service...</p>
+  } @else if (errorMessage()) {
+    <div class="state state--error">
+      <p><span class="state__icon">{{ errorIconGlyph() }}</span>{{ errorMessage() }}</p>
+      <button type="button" class="btn" (click)="retry()">Retry</button>
+    </div>
+  } @else if (filteredCustomers().length === 0) {
+    <p class="state">No customers match "{{ filterText() }}".</p>
+  } @else {
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>City</th>
+          <th>Country</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (customer of filteredCustomers(); track customer.id) {
+          <tr [routerLink]="['/customers', customer.id]" class="table__row">
+            <td class="table__primary" data-label="Name">{{ customer.name }}</td>
+            <td data-label="Email">{{ customer.email }}</td>
+            <td class="mono" data-label="Phone">{{ customer.phone }}</td>
+            <td data-label="City">{{ customer.city }}</td>
+            <td data-label="Country">{{ customer.country }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

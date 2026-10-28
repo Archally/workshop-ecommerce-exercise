@@ -1,0 +1,56 @@
+/* Light end to end, like every other screen in this app: whole-screen luminance
+   is what tells Shop Admin apart from Storefront when both are projected. */
+.sign-in {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  padding: var(--space-6);
+  background: var(--bg);
+}
+
+.sign-in__card {
+  width: 100%;
+  max-width: 380px;
+  padding: var(--space-6);
+}
+
+.sign-in__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.sign-in__mark {
+  width: 16px;
+  height: 16px;
+  background: var(--primary-500);
+  border-radius: var(--radius-sm);
+  flex: 0 0 auto;
+}
+
+.sign-in__brand-name {
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+
+.sign-in__subtitle {
+  margin-bottom: var(--space-5);
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+.sign-in__form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.sign-in__submit {
+  width: 100%;
+  margin-top: var(--space-1);
+}
+
+.sign-in__error {
+  margin-top: var(--space-4);
+  font-weight: 600;
+}

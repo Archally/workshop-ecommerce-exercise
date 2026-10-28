@@ -1,0 +1,65 @@
+<div class="page">
+  <a routerLink="/orders" class="page__back">&larr; Back to orders</a>
+
+  @if (loading()) {
+    <p class="state state--loading">Loading order...</p>
+  } @else if (errorMessage()) {
+    <div class="state state--error">
+      <p><span class="state__icon">{{ errorIconGlyph() }}</span>{{ errorMessage() }}</p>
+    </div>
+  } @else if (order(); as order) {
+    <div class="page__head">
+      <div>
+        <h1 class="mono">{{ order.id }}</h1>
+        <p class="page__lede">
+          @if (customer(); as customer) {
+            {{ customer.name }} &middot; {{ customer.email }}
+          } @else {
+            {{ order.customerId }}
+          }
+        </p>
+      </div>
+      <div class="status-block" [class.is-flashing]="justChanged()">
+        <app-status-badge [status]="order.status" />
+      </div>
+    </div>
+
+    <section class="panel status-panel">
+      <h2 class="panel__title">Move this order forward</h2>
+      <app-order-status-control [order]="order" (changed)="onStatusChanged($event)" />
+    </section>
+
+    <section class="panel">
+      <h2 class="panel__title">Items</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th class="table__num">Qty</th>
+            <th class="table__num">Unit price</th>
+            <th class="table__num">Line total</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (item of order.items; track item.productId) {
+            <tr>
+              <td data-label="Product">{{ item.productName }}</td>
+              <td class="table__num mono" data-label="Qty">{{ item.quantity }}</td>
+              <td class="table__num mono" data-label="Unit price">{{ item.unitPrice | currency }}</td>
+              <td class="table__num mono" data-label="Line total">{{ item.totalPrice | currency }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <div class="order-total">
+        <span>Total</span>
+        <span class="mono">{{ order.totalAmount | currency }}</span>
+      </div>
+    </section>
+
+    <p class="timestamps">
+      Placed {{ order.createdAt | date: 'medium' }} &middot; last updated
+      {{ order.updatedAt | date: 'medium' }}
+    </p>
+  }
+</div>

@@ -1,0 +1,9 @@
+.browse-header {
+  margin-bottom: var(--space-6);
+}
+
+.browse-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: var(--space-5);
+}

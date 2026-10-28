@@ -1,0 +1,95 @@
+<div class="page">
+  <a routerLink="/customers" class="page__back">&larr; Back to customers</a>
+
+  @if (loading()) {
+    <p class="state state--loading">Loading customer...</p>
+  } @else if (errorMessage()) {
+    <div class="state state--error">
+      <p><span class="state__icon">{{ errorIconGlyph() }}</span>{{ errorMessage() }}</p>
+    </div>
+  } @else if (customer(); as customer) {
+    <div class="page__head">
+      <div>
+        <h1>{{ customer.name }}</h1>
+        <p class="page__lede">{{ customer.email }}</p>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <section class="panel">
+        <h2 class="panel__title">Profile</h2>
+        <dl class="specs">
+          <div class="specs__row">
+            <dt>Phone</dt>
+            <dd class="mono">{{ customer.phone }}</dd>
+          </div>
+          <div class="specs__row">
+            <dt>Address</dt>
+            <dd>{{ customer.address }}</dd>
+          </div>
+          <div class="specs__row">
+            <dt>City / State</dt>
+            <dd>{{ customer.city }}, {{ customer.state }} {{ customer.zip }}</dd>
+          </div>
+          <div class="specs__row">
+            <dt>Country</dt>
+            <dd>{{ customer.country }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="panel">
+        <h2 class="panel__title">Discounts</h2>
+        @if (discounts().length === 0) {
+          <p class="panel__note">No discounts on file for this customer.</p>
+        } @else {
+          <div class="chip-list">
+            @for (discount of discounts(); track discount.type) {
+              <span class="chip chip--discount" [title]="discount.description ?? ''">
+                {{ discount.type }}
+                @if (discount.percentage) {
+                  ({{ discount.percentage }}%)
+                } @else {
+                  (&#36;{{ discount.amount }})
+                }
+              </span>
+            }
+          </div>
+        }
+      </section>
+    </div>
+
+    <section class="panel danger-zone">
+      <h2 class="panel__title">Remove customer</h2>
+      @if (!confirmingRemoval()) {
+        <p class="panel__note">
+          Removes this customer from customer-service. There is no undo - the sample data is
+          in-memory and this is permanent until the service restarts.
+        </p>
+        <button type="button" class="btn btn--danger" (click)="askToRemove()">
+          Remove {{ customer.name }}
+        </button>
+      } @else {
+        <p class="confirm-text">
+          Remove <strong>{{ customer.name }}</strong> ({{ customer.id }})? This cannot be undone.
+        </p>
+        <div class="quote-form__actions">
+          <button
+            type="button"
+            class="btn btn--danger"
+            [disabled]="removing()"
+            (click)="confirmRemoval()"
+          >
+            {{ removing() ? 'Removing...' : 'Yes, remove this customer' }}
+          </button>
+          <button type="button" class="btn" [disabled]="removing()" (click)="cancelRemoval()">
+            Cancel
+          </button>
+        </div>
+        @if (removeError()) {
+          <p class="form-error-banner">{{ removeError() }}</p>
+        }
+      }
+    </section>
+  }
+</div>

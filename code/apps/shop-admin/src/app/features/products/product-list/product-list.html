@@ -1,0 +1,55 @@
+<div class="page">
+  <div class="page__head">
+    <div>
+      <h1>Products</h1>
+      <p class="page__lede">Everything the catalog is currently offering.</p>
+    </div>
+    <input
+      class="filter"
+      type="search"
+      placeholder="Filter by name, category, brand, SKU..."
+      [ngModel]="filterText()"
+      (ngModelChange)="filterText.set($event)"
+    />
+  </div>
+
+  @if (loading()) {
+    <p class="state state--loading">Loading products from products-service...</p>
+  } @else if (errorMessage()) {
+    <div class="state state--error">
+      <p><span class="state__icon">{{ errorIconGlyph() }}</span>{{ errorMessage() }}</p>
+      <button type="button" class="btn" (click)="retry()">Retry</button>
+    </div>
+  } @else if (filteredProducts().length === 0) {
+    <p class="state">No products match "{{ filterText() }}".</p>
+  } @else {
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="table__thumb-head"></th>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Brand</th>
+          <th class="table__num">Price</th>
+          <th class="table__num">Stock</th>
+          <th>SKU</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (product of filteredProducts(); track product.id) {
+          <tr [routerLink]="['/products', product.id]" class="table__row">
+            <td class="table__thumb" data-label="">
+              <app-product-tile [product]="product" class="table__thumb-tile" />
+            </td>
+            <td class="table__primary" data-label="Name">{{ product.name }}</td>
+            <td data-label="Category">{{ product.category }}</td>
+            <td data-label="Brand">{{ product.brand }}</td>
+            <td class="table__num mono" data-label="Price">{{ product.price | currency }}</td>
+            <td class="table__num mono" data-label="Stock">{{ product.stock }}</td>
+            <td class="mono" data-label="SKU">{{ product.sku }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+</div>

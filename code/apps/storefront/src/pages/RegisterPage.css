@@ -1,0 +1,57 @@
+.register-page {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.register-page__header {
+  margin-bottom: var(--space-6);
+}
+
+.register-page__tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+  background: var(--bg-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1);
+}
+
+.register-page__tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: var(--space-2) var(--space-3);
+  font-weight: 600;
+  font-size: var(--text-sm);
+  color: var(--text-dim);
+}
+
+.register-page__tab--active {
+  background: var(--bg-card);
+  color: var(--text);
+}
+
+.register-page__lookup-form {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.register-page__lookup-form .field {
+  flex: 1;
+}
+
+.register-page__hint {
+  margin-top: var(--space-4);
+  color: var(--text-dim);
+  font-size: var(--text-sm);
+}
+
+.register-page__form-error {
+  margin-top: var(--space-3);
+  color: var(--danger);
+  font-size: var(--text-sm);
+  font-weight: 600;
+}

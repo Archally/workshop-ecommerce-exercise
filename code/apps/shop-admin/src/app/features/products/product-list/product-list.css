@@ -1,0 +1,24 @@
+/* Page layout, table, filter and state styles are shared - see src/styles.css. */
+
+.table__thumb-head {
+  width: 44px;
+}
+
+.table__thumb {
+  width: 44px;
+  padding-right: 0 !important;
+}
+
+.table__thumb-tile {
+  display: block;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+@media (max-width: 767px) {
+  .table__thumb {
+    display: none;
+  }
+}

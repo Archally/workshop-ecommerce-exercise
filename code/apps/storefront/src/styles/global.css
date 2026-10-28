@@ -1,0 +1,141 @@
+/* Offline workshop typography uses local system fonts only. */
+
+:root {
+  color-scheme: dark;
+
+  /* Storefront identity - DESIGN.md section 4: periwinkle blue primary, violet
+     secondary, on near-black. Whole-screen luminance (dark here, light on Shop
+     Admin) is the PRIMARY signal that tells the two apps apart at a glance;
+     hue is reserved for the shared order-status/discount chip mapping
+     (section 3) and is deliberately not repurposed as an app identity color. */
+  --bg: #0b0e14;
+  --bg-raised: #12161f;
+  --bg-card: #161b26;
+  --bg-card-hover: #1b2130;
+  --border: #262d3d;
+  --border-strong: #38415a;
+
+  --text: #eef1f7;
+  --text-dim: #9aa4bb;
+  --text-faint: #626c85;
+
+  --accent: #6ea8fe;
+  --accent-strong: #8fbcff;
+  --accent-pressed: #3f6fc4;
+  --accent-bg: rgba(110, 168, 254, 0.12);
+
+  --secondary-300: #c4b5fd;
+  --secondary-pressed: #7c5cea;
+
+  --success: #4ade80;
+  --success-bg: rgba(74, 222, 128, 0.12);
+  --warning: #fbbf24;
+  --warning-bg: rgba(251, 191, 36, 0.12);
+  --danger: #f87171;
+  --danger-bg: rgba(248, 113, 113, 0.12);
+  --info: #a78bfa;
+  --info-bg: rgba(167, 139, 250, 0.12);
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Shared numeric type scale (DESIGN.md section 3) - family/weight/tracking
+     diverge per app, the step sizes do not. */
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.5rem;
+  --text-xl: 1.875rem;
+  --text-2xl: 2.25rem;
+
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Consolas, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image:
+    radial-gradient(circle at 15% -10%, rgba(110, 168, 254, 0.08), transparent 40%),
+    radial-gradient(circle at 85% 0%, rgba(167, 139, 250, 0.06), transparent 40%);
+  background-attachment: fixed;
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::placeholder {
+  color: var(--text-faint);
+}
+
+.mono {
+  font-family: var(--font-mono);
+}
+
+/* Announced to assistive technology and to any tool that reads the accessible
+   tree; never painted. Used where a screen's own name is not one of the words
+   on it - a product page's largest text is the product's name, so the page
+   itself would otherwise have nothing stable to identify it by. Adds no box
+   and no space: nothing in DESIGN.md changes because of it. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

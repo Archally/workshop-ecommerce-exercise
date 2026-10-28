@@ -1,0 +1,28 @@
+<section class="feed" aria-label="Activity">
+  <header class="feed__header">
+    <h2>Activity</h2>
+    <span class="feed__count">{{ entries().length }}</span>
+  </header>
+
+  @if (entries().length === 0) {
+    <p class="feed__empty">Nothing yet. Actions taken in this back office will narrate here.</p>
+  } @else {
+    <ol class="feed__list">
+      @for (entry of entries(); track entry.id) {
+        <li class="feed__item" [class]="'feed__item--' + entry.kind">
+          <span class="feed__time mono">{{ formatTime(entry.at) }}</span>
+          <span class="feed__message">
+            {{ entry.message }}
+            @if (entry.transition; as transition) {
+              <span class="feed__transition">
+                <span class="pill pill--muted">{{ transition.from }}</span>
+                <span class="feed__arrow" aria-hidden="true">&rarr;</span>
+                <app-status-badge [status]="transition.to" />
+              </span>
+            }
+          </span>
+        </li>
+      }
+    </ol>
+  }
+</section>

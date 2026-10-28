@@ -1,0 +1,265 @@
+/*
+ * Shell skeleton: left sidebar + full-bleed content + docked right activity
+ * panel, topped by a slim bar. This silhouette (two vertical bars flanking
+ * content) is Shop Admin's secondary contrast signal against Storefront's
+ * single top bar over one centred column - see DESIGN.md section 1.
+ */
+
+.shell {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) 1fr var(--activity-width);
+  grid-template-rows: var(--topbar-height) 1fr;
+  grid-template-areas:
+    'topbar topbar topbar'
+    'sidebar main activity';
+  height: 100vh;
+  background: var(--bg);
+}
+
+.shell__topbar {
+  grid-area: topbar;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-5);
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+}
+
+.shell__brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.shell__mark {
+  width: 16px;
+  height: 16px;
+  background: var(--primary-500);
+  border-radius: var(--radius-sm);
+  flex: 0 0 auto;
+}
+
+.shell__brand-name {
+  font-size: var(--text-md);
+  font-weight: 600;
+}
+
+.shell__section {
+  font-size: var(--text-sm);
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.shell__operator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+}
+
+.shell__operator-name {
+  font-weight: 600;
+}
+
+.shell__operator-role {
+  color: var(--text-faint);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.shell__sign-out {
+  padding: var(--space-1) var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: var(--text-sm);
+  cursor: pointer;
+}
+
+.shell__sign-out:hover {
+  background: var(--bg-card);
+}
+
+.shell__sidebar {
+  grid-area: sidebar;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-3);
+  background: var(--bg-sunken);
+  border-right: 1px solid var(--border);
+}
+
+.shell__nav-link {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-sm);
+}
+
+.shell__nav-icon {
+  font-size: var(--text-md);
+  line-height: 1;
+}
+
+.shell__nav-link:hover {
+  background: var(--bg-raised);
+  color: var(--text);
+}
+
+.shell__nav-link.is-active {
+  background: var(--primary-100);
+  color: var(--primary-700);
+}
+
+.shell__main {
+  grid-area: main;
+  overflow-y: auto;
+  padding: var(--space-6);
+}
+
+.shell__activity {
+  grid-area: activity;
+  border-left: 1px solid var(--border);
+  background: var(--bg-sunken);
+  min-height: 0;
+  overflow: hidden;
+}
+
+.shell__activity-close {
+  display: none;
+}
+
+.shell__activity-tab {
+  display: none;
+}
+
+.shell__scrim {
+  display: none;
+}
+
+/* below lg (1024px): the activity panel leaves the grid and becomes a
+   bottom drawer, pulled up by a tab - it must never simply disappear. */
+@media (max-width: 1023px) {
+  .shell {
+    grid-template-columns: var(--sidebar-width) 1fr;
+    grid-template-areas:
+      'topbar topbar'
+      'sidebar main';
+  }
+
+  .shell__activity {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: min(60vh, 480px);
+    border-left: none;
+    border-top: 1px solid var(--border);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    box-shadow: 0 -8px 24px rgba(15, 23, 42, 0.16);
+    transform: translateY(100%);
+    transition: transform 220ms ease;
+    z-index: 40;
+  }
+
+  .shell__activity.is-open {
+    transform: translateY(0);
+  }
+
+  .shell__activity-close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: var(--space-2);
+    right: var(--space-2);
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border);
+    background: var(--bg-raised);
+    color: var(--text-dim);
+    font-size: var(--text-md);
+    line-height: 1;
+    z-index: 1;
+  }
+
+  .shell__activity-tab {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    position: fixed;
+    right: var(--space-4);
+    bottom: var(--space-4);
+    z-index: 41;
+    background: var(--primary-500);
+    color: #ffffff;
+    border: none;
+    border-radius: var(--radius-pill);
+    padding: var(--space-2) var(--space-4);
+    font-weight: 600;
+    font-size: var(--text-sm);
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.22);
+  }
+
+  .shell__activity-badge {
+    background: rgba(255, 255, 255, 0.28);
+    border-radius: var(--radius-pill);
+    padding: 0 var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  .shell__scrim {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.35);
+    z-index: 39;
+  }
+}
+
+/* below md (768px): the sidebar collapses to a bottom icon tab bar */
+@media (max-width: 767px) {
+  .shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: var(--topbar-height) 1fr 64px;
+    grid-template-areas:
+      'topbar'
+      'main'
+      'sidebar';
+  }
+
+  .shell__sidebar {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    border-right: none;
+    border-top: 1px solid var(--border);
+    padding: var(--space-1);
+  }
+
+  .shell__nav-link {
+    flex-direction: column;
+    gap: 2px;
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .shell__nav-icon {
+    font-size: 20px;
+  }
+
+  .shell__activity-tab {
+    bottom: calc(64px + var(--space-3));
+  }
+}
